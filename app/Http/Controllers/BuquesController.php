@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BuquesExport;
 use App\Models\Buque;
+use Carbon\Carbon;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -37,5 +40,12 @@ class BuquesController extends Controller
         $buques = Buque::paginate($perPage);
 
         return $buques;
+    }
+
+    public function export()
+    {
+        $now = new Carbon();
+
+        return Excel::download(new BuquesExport, 'buques-' . $now->format('d-m-Y') . '.xlsx');
     }
 }

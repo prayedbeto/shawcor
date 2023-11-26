@@ -37,7 +37,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('buques/records', [BuquesController::class, 'records']);
+    Route::get('buques/export', [BuquesController::class, 'export'])->name('buques.export');
     Route::resource('buques', BuquesController::class);
+    Route::get('gruas/export', [GruasController::class, 'export'])->name('gruas.export');
     Route::resource('gruas', GruasController::class);
 });
 
